@@ -1,2 +1,2 @@
 # GG-Recipes
-Ein Plugin für verschieden GG-Rezepte.
+Ein Plugin für verschiedene GG-Rezepte.
