@@ -145,7 +145,7 @@ public final class GGRecipes extends JavaPlugin {
             Map.of(
                 'D', Material.DRAGON_EGG,
                 'B', Material.BEACON,
-                'E', Material.LEGACY_ENDER_PORTAL_FRAME
+                'E', Material.END_PORTAL_FRAME
             )
         );
 
