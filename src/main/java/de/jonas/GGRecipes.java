@@ -17,6 +17,7 @@ import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Die Haupt- und Main-Klasse dieses Plugins. {@link GGRecipes} stellt eine Instanz eines {@link JavaPlugin} dar,
@@ -39,6 +40,10 @@ public final class GGRecipes extends JavaPlugin {
 
         // initialize plugin instance
         instance = this;
+
+        // load config
+        getConfig().options().copyDefaults(true);
+        saveConfig();
 
         // register yeezy event
         Bukkit.getPluginManager().registerEvents(new YeezyListener(), this);
@@ -77,8 +82,8 @@ public final class GGRecipes extends JavaPlugin {
         RecipeHandler.registerRecipe(
             ItemHandler.getStack(
                 Material.DIAMOND_BOOTS,
-                ChatColor.YELLOW.toString() + ChatColor.BOLD + "Yeezys",
-                new String[]{ChatColor.DARK_PURPLE + "Abgenutzt will diese Schuhe keiner anziehen!"},
+                getConfigString("yeezyName"),
+                getConfigString("yeezyDescription"),
                 Enchantment.DURABILITY,
                 3
             ),
@@ -133,11 +138,8 @@ public final class GGRecipes extends JavaPlugin {
         RecipeHandler.registerRecipe(
             ItemHandler.getStack(
                 Material.DIAMOND_SWORD,
-                ChatColor.YELLOW.toString() + ChatColor.BOLD + "Antikes Schwert",
-                new String[]{
-                    ChatColor.WHITE + "Dieses Schwert ist Antik.",
-                    ChatColor.WHITE + "Es ist über " + ChatColor.RED + "1.000 Jahre" + ChatColor.WHITE + " alt."
-                },
+                getConfigString("antiqueSwordName"),
+                getConfigString("antiqueSwordDescription"),
                 Enchantment.PROTECTION_ENVIRONMENTAL,
                 8
             ),
@@ -152,8 +154,8 @@ public final class GGRecipes extends JavaPlugin {
         // cola
         final ItemStack cola = ItemHandler.getStack(
             Material.POTION,
-            ChatColor.DARK_PURPLE + "Cola",
-            new String[]{ChatColor.WHITE + "Gibt dir einen Energieschub!"},
+            getConfigString("colaName"),
+            getConfigString("colaDescription"),
             null,
             0
         );
@@ -200,13 +202,27 @@ public final class GGRecipes extends JavaPlugin {
         RecipeHandler.registerRecipe(
             ItemHandler.getStack(
                 material,
-                ChatColor.YELLOW.toString() + ChatColor.BOLD + "Antike Rüstung",
-                new String[]{ChatColor.DARK_PURPLE + "Nur wahre Krieger tragen diese Rüstung!"},
+                getConfigString("antiqueArmorName"),
+                getConfigString("antiqueArmorDescription"),
                 Enchantment.PROTECTION_ENVIRONMENTAL,
                 6
             ),
             recipe,
             materials
+        );
+    }
+
+    /**
+     * Gibt einen bestimmten String aus der Config zurück, in dem auch direkt Farbcodes übersetzt werden.
+     *
+     * @param path Der Pfad unter dem dieser String gesucht werden soll.
+     *
+     * @return Einen bestimmten String aus der Config, in dem auch direkt Farbcodes übersetzt werden.
+     */
+    public static String getConfigString(@NotNull final String path) {
+        return ChatColor.translateAlternateColorCodes(
+            '&',
+            Objects.requireNonNull(getInstance().getConfig().getString(path))
         );
     }
 

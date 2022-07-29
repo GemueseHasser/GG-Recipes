@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Mithilfe eines {@link ItemHandler} lässt sich ein {@link ItemStack} ganz einfach mittels weniger Parameter erzeugen.
@@ -30,7 +30,7 @@ public final class ItemHandler {
     public static ItemStack getStack(
         @NotNull final Material material,
         @NotNull final String name,
-        @NotNull final String[] lore,
+        @NotNull final String lore,
         @Nullable final Enchantment enchantment,
         @Range(from = 0, to = Integer.MAX_VALUE) final int enchantmentLevel
     ) {
@@ -39,7 +39,7 @@ public final class ItemHandler {
 
         assert meta != null;
         meta.setDisplayName(name);
-        meta.setLore(Arrays.asList(lore));
+        meta.setLore(Collections.singletonList(lore));
         stack.setItemMeta(meta);
 
         if (enchantment == null) return stack;

@@ -1,6 +1,6 @@
 package de.jonas.ggrecipes.handler;
 
-import org.bukkit.ChatColor;
+import de.jonas.GGRecipes;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -42,7 +42,7 @@ public final class YeezyHandler {
         final ItemMeta bootsMeta = boots.getItemMeta();
 
         assert bootsMeta != null;
-        return !bootsMeta.getDisplayName().equals(ChatColor.YELLOW.toString() + ChatColor.BOLD + "Yeezys");
+        return !bootsMeta.getDisplayName().equals(GGRecipes.getConfigString("yeezyName"));
     }
 
     /**
