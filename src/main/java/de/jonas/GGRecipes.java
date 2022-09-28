@@ -2,6 +2,7 @@ package de.jonas;
 
 import de.jonas.ggrecipes.handler.RecipeHandler;
 import de.jonas.ggrecipes.handler.YeezyHandler;
+import de.jonas.ggrecipes.listener.VillagerTokenListener;
 import de.jonas.ggrecipes.listener.YeezyListener;
 import de.jonas.ggrecipes.handler.ItemHandler;
 import org.bukkit.Bukkit;
@@ -11,6 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
@@ -45,8 +47,10 @@ public final class GGRecipes extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
 
-        // register yeezy event
-        Bukkit.getPluginManager().registerEvents(new YeezyListener(), this);
+        // register events
+        final PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new YeezyListener(), this);
+        pm.registerEvents(new VillagerTokenListener(), this);
 
         // register all recipes
         registerRecipes();
