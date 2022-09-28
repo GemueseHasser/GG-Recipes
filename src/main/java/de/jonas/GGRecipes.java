@@ -94,6 +94,22 @@ public final class GGRecipes extends JavaPlugin {
             )
         );
 
+        // villager token
+        RecipeHandler.registerRecipe(
+            ItemHandler.getStack(
+                Material.NAME_TAG,
+                getConfigString("villagerTokenName"),
+                getConfigString("villagerTokenDescription"),
+                null,
+                0
+            ),
+            new String[]{"BEB", "EBE", "BEB"},
+            Map.of(
+                'B', Material.BEACON,
+                'E', Material.EMERALD_BLOCK
+            )
+        );
+
         // antique helmet
         registerAntique(
             Material.DIAMOND_HELMET,
