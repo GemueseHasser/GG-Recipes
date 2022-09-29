@@ -1,12 +1,13 @@
 package de.jonas.ggrecipes.listener;
 
 import de.jonas.GGRecipes;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -26,10 +27,7 @@ public final class VillagerTokenListener implements Listener {
 
     //<editor-fold desc="implementation">
     @EventHandler
-    public void onInteractWithVillager(@NotNull final PlayerInteractAtEntityEvent e) {
-        // check if player interacts with villager
-        if (e.getRightClicked().getType() != EntityType.VILLAGER) return;
-
+    public void onInteractWithVillager(@NotNull final PlayerInteractEntityEvent e) {
         // get player
         final Player player = e.getPlayer();
 
@@ -39,7 +37,14 @@ public final class VillagerTokenListener implements Listener {
 
         // check display name
         if (handMeta == null) return;
+        if (hand.getType() != Material.NAME_TAG) return;
         if (!handMeta.getDisplayName().equals(GGRecipes.getConfigString("villagerTokenName"))) return;
+
+        // cancel event
+        e.setCancelled(true);
+
+        // check if player interacts with villager
+        if (e.getRightClicked().getType() != EntityType.VILLAGER) return;
 
         final Villager villager = (Villager) e.getRightClicked();
 
