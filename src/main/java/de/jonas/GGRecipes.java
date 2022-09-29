@@ -1,10 +1,11 @@
 package de.jonas;
 
+import de.jonas.ggrecipes.handler.ItemHandler;
 import de.jonas.ggrecipes.handler.RecipeHandler;
 import de.jonas.ggrecipes.handler.YeezyHandler;
 import de.jonas.ggrecipes.listener.VillagerTokenListener;
 import de.jonas.ggrecipes.listener.YeezyListener;
-import de.jonas.ggrecipes.handler.ItemHandler;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -31,6 +32,7 @@ public final class GGRecipes extends JavaPlugin {
 
     //<editor-fold desc="STATIC FIELDS">
     /** Die Instanz dieses {@link GGRecipes Plugins}. */
+    @Getter
     private static GGRecipes instance;
     //</editor-fold>
 
@@ -246,13 +248,4 @@ public final class GGRecipes extends JavaPlugin {
         );
     }
 
-    /**
-     * Gibt die Instanz dieses {@link GGRecipes Plugins} zurück.
-     *
-     * @return Die Instanz dieses {@link GGRecipes Plugins}.
-     */
-    @NotNull
-    public static GGRecipes getInstance() {
-        return instance;
-    }
 }
